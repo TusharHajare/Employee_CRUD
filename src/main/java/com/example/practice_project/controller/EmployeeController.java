@@ -18,13 +18,14 @@ import com.example.practice_project.dto.EmployeeRequest;
 import com.example.practice_project.dto.EmployeeResponse;
 
 @RestController
-public class EmployeeController {
-	
+public class EmployeeController 
+{
 	@Autowired
 	private EmployeeService employeeServive;
 
 	@PostMapping()
-	public ResponseEntity<EmployeeResponse> SaveEmployee(@RequestBody EmployeeRequest emp) {
+	public ResponseEntity<EmployeeResponse> SaveEmployee(@RequestBody EmployeeRequest emp) 
+	{
 		return ResponseEntity.ok(employeeServive.createEmployee(emp));
 	}
 	
