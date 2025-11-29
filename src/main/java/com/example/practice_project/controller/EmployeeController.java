@@ -18,43 +18,38 @@ import com.example.practice_project.dto.EmployeeRequest;
 import com.example.practice_project.dto.EmployeeResponse;
 
 @RestController
-public class EmployeeController 
-{
+public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeServive;
 
 	@PostMapping()
-	public ResponseEntity<EmployeeResponse> SaveEmployee(@RequestBody EmployeeRequest emp) 
-	{
+	public ResponseEntity<EmployeeResponse> SaveEmployee(@RequestBody EmployeeRequest emp) {
+		
 		return ResponseEntity.ok(employeeServive.createEmployee(emp));
 	}
-	
+
 	@GetMapping("/{id}")
-	public EmployeeResponse getEmployeeById(@PathVariable int id)
-	{
+	public EmployeeResponse getEmployeeById(@PathVariable int id) {
 		return employeeServive.getEmpById(id);
 	}
-	
+
 	@GetMapping()
 	public List<EmployeeResponse> getAllEmployee() {
 		return employeeServive.getAllEmployee();
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public String removeById(@PathVariable int id)
-	{
+	public String removeById(@PathVariable int id) {
 		return employeeServive.removeById(id);
 	}
-	
+
 	@DeleteMapping
-	public String removeAllRecords()
-	{
+	public String removeAllRecords() {
 		return employeeServive.removeAllRecords();
 	}
-	
+
 	@PutMapping("/{id}")
-	public EmployeeResponse updateEmployeeById(@RequestBody Employee emp,@PathVariable int id)
-	{
+	public EmployeeResponse updateEmployeeById(@RequestBody Employee emp, @PathVariable int id) {
 		return employeeServive.updateRecordsById(emp, id);
 	}
 }
