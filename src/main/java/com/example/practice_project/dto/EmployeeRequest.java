@@ -2,11 +2,28 @@ package com.example.practice_project.dto;
 
 import java.util.List;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public class EmployeeRequest
 {
+	@NotEmpty(message = "username must not be null or empty")
+	@Size(min = 3, max = 15)
 	private String userName;
+	
+	@Pattern(regexp = "[A-Za-z0-9@]+")
+	@NotNull(message ="password must not be null")
 	private String password;
+	
+	@Max(value = 100000,  message = "Salary must be more than 100000") //<=
+	@NotNull(message ="sallary must not be null")
 	private Long sallary;
+	
+	@NotEmpty(message = "Address must not be null or empty")
 	private List<AddressRequest> address;
 	
 	public EmployeeRequest() {

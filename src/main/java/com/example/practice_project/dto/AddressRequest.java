@@ -1,10 +1,25 @@
 package com.example.practice_project.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class AddressRequest
 {
+	@Min(value = 3, message = "address type must be grteter than or equals to value")
+	@NotEmpty(message = "addressType must not be Empty")
 	private String addressType;
+	
+	@NotBlank(message = "city must not be blank")
 	private String city;
+	
+	@NotNull(message ="district must not be null")
+	@Min(value = 5, message = "District must be grteter than or equals to value")
 	private String district;
+	
+	@Max(value = 1000000, message = "ENter valid post code")
 	private long postalCode;
 	
 	public AddressRequest() {

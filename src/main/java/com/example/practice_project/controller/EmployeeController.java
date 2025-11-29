@@ -3,6 +3,8 @@ package com.example.practice_project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,39 +19,48 @@ import com.example.practice_project.Service.EmployeeService;
 import com.example.practice_project.dto.EmployeeRequest;
 import com.example.practice_project.dto.EmployeeResponse;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeServive;
 
 	@PostMapping()
-	public ResponseEntity<EmployeeResponse> SaveEmployee(@RequestBody EmployeeRequest emp) {
-		
-		return ResponseEntity.ok(employeeServive.createEmployee(emp));
+	public ResponseEntity<EmployeeResponse> SaveEmployee(@Valid @RequestBody EmployeeRequest emp) 
+	{
+		return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(employeeServive.createEmployee(emp));
 	}
 
 	@GetMapping("/{id}")
-	public EmployeeResponse getEmployeeById(@PathVariable int id) {
-		return employeeServive.getEmpById(id);
+	public ResponseEntity<EmployeeResponse> getEmployeeById(@PathVariable int id) 
+	{
+		 EmployeeResponse response =  employeeServive.getEmpById(id);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
 	@GetMapping()
-	public List<EmployeeResponse> getAllEmployee() {
-		return employeeServive.getAllEmployee();
+	public ResponseEntity<List<EmployeeResponse>> getAllEmployee() {
+		return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(employeeServive.getAllEmployee());
 	}
 
 	@DeleteMapping("/{id}")
-	public String removeById(@PathVariable int id) {
-		return employeeServive.removeById(id);
+	public ResponseEntity<String> removeById(@PathVariable int id)
+	{
+		employeeServive.removeById(id);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body("ResponseEntity-Deleted Succefully...!") ;
 	}
 
 	@DeleteMapping
-	public String removeAllRecords() {
-		return employeeServive.removeAllRecords();
+	public ResponseEntity<String> removeAllRecords() 
+	{
+		employeeServive.removeAllRecords();
+		return ResponseEntity.status(HttpStatus.OK).body("Deleted All Data...!");
 	}
 
 	@PutMapping("/{id}")
-	public EmployeeResponse updateEmployeeById(@RequestBody Employee emp, @PathVariable int id) {
-		return employeeServive.updateRecordsById(emp, id);
+	public ResponseEntity<EmployeeResponse> updateEmployeeById(@RequestBody Employee emp, @PathVariable int id) {
+		return ResponseEntity.status(HttpStatus.OK).body(employeeServive.updateRecordsById(emp, id));
 	}
 }
