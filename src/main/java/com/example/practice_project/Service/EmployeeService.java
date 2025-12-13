@@ -11,6 +11,8 @@ import com.example.practice_project.dto.EmployeeResponse;
 import com.example.practice_project.mapper.EmployeeRequestMapper;
 import com.example.practice_project.repository.EmployeeRepository;
 
+import Exceptions.ResourceNotFoundtException;
+
 @Service
 public class EmployeeService 
 {
@@ -27,8 +29,9 @@ public class EmployeeService
 
 	public EmployeeResponse getEmpById(int id)
 	{
-	   EmployeeResponse employeeRes = EmployeeRequestMapper.toEmployeeRespMapper(empRepository.findById(id).get());
-	   return employeeRes;
+	   Employee employee = empRepository.findById(id).
+			   orElseThrow(() -> new ResourceNotFoundtException("Employee Not found with id : "+ id));
+	   return EmployeeRequestMapper.toEmployeeRespMapper(employee);
 	}
 
 	public List<EmployeeResponse> getAllEmployee() {

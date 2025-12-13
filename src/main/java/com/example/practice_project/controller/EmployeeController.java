@@ -48,8 +48,8 @@ public class EmployeeController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> removeById(@PathVariable int id)
 	{
-		employeeServive.removeById(id);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("ResponseEntity-Deleted Succefully...!") ;
+		return ResponseEntity.ok(employeeServive.removeById(id));
+//		return ResponseEntity.status(HttpStatus.ACCEPTED).body("ResponseEntity-Deleted Succefully...!") ;
 	}
 
 	@DeleteMapping

@@ -9,6 +9,13 @@ public class PracticeProjectApplication {
 	public static void main(String[] args) 
 	{
 		SpringApplication.run(PracticeProjectApplication.class, args);
+	    
+		try {
+	    int a = 14/0;
+		}
+		catch(Exception e) {
+			System.out.println("Error : "+ e.getMessage());
+		}
 	    System.out.println("Welcome...!");
 	}
 
