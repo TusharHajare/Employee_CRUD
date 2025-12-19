@@ -2,6 +2,8 @@ package com.example.practice_project.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -20,15 +22,28 @@ import com.example.practice_project.dto.EmployeeRequest;
 import com.example.practice_project.dto.EmployeeResponse;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
-public class EmployeeController {
+@Slf4j
+public class EmployeeController
+{
 	@Autowired
 	private EmployeeService employeeServive;
+	
+	Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	@PostMapping()
 	public ResponseEntity<EmployeeResponse> SaveEmployee(@Valid @RequestBody EmployeeRequest emp) 
 	{
+		logger.info("i am in EmployeeController");
+		logger.warn("i am in EmployeeController");
+		logger.error("i am in EmployeeController");
+		
+		logger.debug("i am debug in EmployeeController");
+		logger.trace("i am trace in EmployeeController");
+		
+//		System.out.println("i am in EmployeeController");
 		return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(employeeServive.createEmployee(emp));
 	}
 
